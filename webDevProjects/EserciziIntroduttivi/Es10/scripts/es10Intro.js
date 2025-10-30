@@ -1,12 +1,25 @@
 // il DOM gestisce 
 // con un input l'inserimento nell lista dei voti
+//
 
-
-const grades = []
+let grades = []
 
 //1) prendere tag html dal DOM
 let btn = document.getElementById("calc")
 let res = document.getElementById("res")
+let addBtn = document.getElementById("addValue")
+let usIn = document.getElementById("userIn")
+let reset = document.getElementById("reset")
+
+reset.addEventListener("click", () => {
+    grades = []
+})
+
+usIn.addEventListener("keydown", () => {
+    grades.push(Number(usIn.value))
+    usIn.value = ""
+})
+
 
 btn.addEventListener("click", () => {
     const numberOfGrades = grades.length
