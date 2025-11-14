@@ -11,7 +11,7 @@ guessBtn.addEventListener("click", () => {
 
     if (gameOver) return
 
-    //Basic input validation needed...
+    //Basic input validation needed... Perchè prima della conversione?
     if (num.value === "") {
         res.textContent = "Inserire un numero"
         return
@@ -24,7 +24,9 @@ guessBtn.addEventListener("click", () => {
     } else if (userGuess > rnd) {
         res.textContent = "Tropppo alto";
     } else {
+        triesValues.push(userGuess)
         res.innerHTML = "Indovinato! <br> Tentativi totali: " + triesValues.length + "<br>" + "Tentativi: " + triesValues
+        //Bello per grafica ma discutibile se gestito con flag gameOver
         guessBtn.disabled = true
         gameOver = true
     }
