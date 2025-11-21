@@ -11,5 +11,5 @@ btn.addEventListener("click", () => {
     notificationContainer.append(newNotification)
 
 
-
+    setTimeout(() => { newNotification.remove() }, 3000)
 })
