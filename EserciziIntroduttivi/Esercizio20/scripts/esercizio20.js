@@ -11,7 +11,6 @@ setInterval(() => {
 btn.addEventListener("click", () => {
     let newNotification =
         document.createElement("div")
-
     newNotification.textContent = "NOTIFICA #" + index++
 
     newNotification.addEventListener("click", () => {
