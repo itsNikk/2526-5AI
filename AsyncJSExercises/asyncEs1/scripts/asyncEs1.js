@@ -5,5 +5,6 @@ fetch(URL)
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => {
-        console.log('Errore:', error);  // Gestisce eventuali errori
+        //Sintassi equivalente a "Errore: " + error
+        console.log('Errore:', error);
     });
