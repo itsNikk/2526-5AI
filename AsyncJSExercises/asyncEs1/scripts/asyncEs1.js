@@ -1,10 +1,18 @@
-const URL = 'https://jsonplaceholder.typicode.com/users/1'
+const URL = "https://jsonplaceholder.typicode.com/users/1szsdfgbsdfgbs"
 
-//Perchè due then? Cosa sta succedendo?
+let resElem = document.getElementById("res")
+
 fetch(URL)
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => {
-        //Sintassi equivalente a "Errore: " + error
-        console.log('Errore:', error);
-    });
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            //Error= Class Exception di Java
+            throw new Error("Errore: " + response.status);
+        }
+    })
+    .then(data => {
+        console.log("adfluifafadu");
+        resElem.textContent = JSON.stringify(data)
+    })
+    .catch(error => resElem.textContent = error.message)
