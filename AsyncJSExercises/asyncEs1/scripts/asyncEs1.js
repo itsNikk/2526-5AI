@@ -1,4 +1,4 @@
-const URL = "https://jsonplaceholder.typicode.com/users/1szsdfgbsdfgbs"
+const URL = "https://jsonplaceholder.typicode.com/users/1"
 
 let resElem = document.getElementById("res")
 
