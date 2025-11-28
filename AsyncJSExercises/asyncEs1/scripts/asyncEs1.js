@@ -12,7 +12,14 @@ fetch(URL)
         }
     })
     .then(data => {
-        console.log("adfluifafadu");
         resElem.textContent = JSON.stringify(data)
     })
     .catch(error => resElem.textContent = error.message)
+
+
+
+let x = new Promise((resolve, reject) => {
+    setTimeout(() => { reject(new Error("hhhhh")) }, 3000)
+})
+
+x.catch(error => console.log(error))
