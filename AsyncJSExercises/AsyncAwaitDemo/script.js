@@ -1,7 +1,7 @@
 function getUserAsync(id) {
     return new Promise((resolve, reject) => {
-        //dopo un po' dammi un pnumero
 
+        //dopo un po' dammi uno user
         let delay = Math.random() * 2000 + 500
 
         setTimeout(() => {
@@ -24,7 +24,6 @@ async function getUserData() {
     const id = document.getElementById("uid").value
 
     console.log("Eseguo con id: " + id);
-
 
     try {
         const user = await getUserAsync(id)
