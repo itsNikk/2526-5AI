@@ -5,9 +5,9 @@ let n = document.getElementById("n")
 let res = document.getElementById("res")
 
 btn.addEventListener("click", () => {
-
+    
     if (n.value === '') {
-        res.textContent = "Inserire un numero"
+        res.textContent = "Inserire un numero";
         return;
     }
 
@@ -18,7 +18,7 @@ btn.addEventListener("click", () => {
             break;
         }
     }
-
+    
     if (found) {
         res.textContent = "Trovato!"
     } else {
