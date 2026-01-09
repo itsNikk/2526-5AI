@@ -5,7 +5,6 @@ let data = document.getElementById("data")
 async function getUser(URL) {
 
     let response = await fetch(URL)
-    //console.log(response);
 
     if (response.ok) {
         //console.log("OK");
