@@ -14,8 +14,7 @@ async function getUser(URL) {
         //OK ma troppo banale
         //data.textContent = json;
 
-
-        //OK, meglio ma troppo banale
+        //OK, meglio ma ancora troppo banale
         //data.textContent = JSON.stringify(json);
 
         // ok ci sta...
@@ -24,13 +23,9 @@ async function getUser(URL) {
     } else {
         console.log("Errore HTTP: " + response.status);
     }
-
-
 }
 
 for (let i = 1; i <= 15; i++) {
     const urlToCall = baseURL + i
-
     getUser(urlToCall);
-
 }
