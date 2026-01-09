@@ -19,12 +19,12 @@ for (let i = 0; i < numButtons; i++) {
 
 targetBtn.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
-        //togli la vita a chi di dovere
+        //togli un punto a chi di dovere
         let btnToDamage = document.getElementById(targetBtn.value)
         //check if null...
-        if(btnToDamage === null) throw new Error("Bottone non trovato")
+        if (btnToDamage === null) throw new Error("Bottone non trovato")
         btnToDamage.textContent = Number(btnToDamage.textContent) - 1
         //Se vita bottone <=0 eliminalo dal DOM
-        if(Number(btnToDamage.textContent) <=0) btnToDamage.remove()        
+        if (Number(btnToDamage.textContent) <= 0) btnToDamage.remove()
     }
 })
