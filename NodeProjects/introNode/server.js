@@ -5,33 +5,12 @@ const PORT = 80;
 const HOSTNAME = "localhost";
 
 const users = [
-    {
-        username: "luca_rossi",
-        eta: 28,
-        email: "luca.rossi@example.com"
-    },
-    {
-        username: "marta_bianchi",
-        eta: 34,
-        email: "marta.bianchi@example.com"
-    },
-    {
-        username: "giulio_verdi",
-        eta: 22,
-        email: "giulio.verdi@example.com"
-    },
-    {
-        username: "chiara_neri",
-        eta: 41,
-        email: "chiara.neri@example.com"
-    },
-    {
-        username: "paolo_ferri",
-        eta: 30,
-        email: "paolo.ferri@example.com"
-    }
-];
-
+    { "username": "luca_rossi", "eta": 28, "email": "luca.rossi@example.com" },
+    { "username": "marta_bianchi", "eta": 34, "email": "marta.bianchi@example.com" },
+    { "username": "giulio_verdi", "eta": 22, "email": "giulio.verdi@example.com" },
+    { "username": "chiara_neri", "eta": 41, "email": "chiara.neri@example.com" },
+    { "username": "paolo_ferri", "eta": 30, "email": "paolo.ferri@example.com" }
+]
 
 //Esercizio:
 // Create endpoint /number: che restiuisce al client un numero random tar 1 e 100
@@ -66,6 +45,11 @@ const server = http.createServer((req, res) => {
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json");
         res.end(JSON.stringify(users));
+    } else if (parts[0] === "/number" && req.method !== "GET") {
+        res.statusCode = 405;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ error: "Method not Allowed", allowed: ["GET"] }))
+        return
     } else if (parts.length === 1 && parts[0] === "number" && req.method === "GET") {
         //give a number to client
         const n = parseInt(Math.random() * 100) + 1;
