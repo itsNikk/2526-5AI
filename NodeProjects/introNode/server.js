@@ -20,7 +20,7 @@ const users = [
 
 const server = http.createServer((req, res) => {
     const url = new URL(req.url, "http://" + req.headers.host)
-
+    
     const rawParts = url.pathname.split("/")
     let parts = [];
 
@@ -31,10 +31,8 @@ const server = http.createServer((req, res) => {
     }
 
     if (req.url === "/" && req.method === "GET") {
-        res.statusCode = 200;
         //HEADER NAME - MIME Type
-        res.setHeader("Content-Type", "text/plain");
-        res.end("Ciaoo, benvenuto!");
+        sendText(res, 200, "Ciao, Benvenuto")
     } else if (req.url === "/" && req.method === "POST") {
         res.statusCode = 405; //Method not allowed
         res.setHeader("Allow", "GET");
@@ -42,13 +40,9 @@ const server = http.createServer((req, res) => {
     } else if (req.url === "/users") {
         //Restituite un array JSON di 5 utenti
         // ogni utente è descritto da username, eta, email
-        res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
-        res.end(JSON.stringify(users));
+        sendJSON(res, 200, JSON.stringify(users))
     } else if (parts[0] === "/number" && req.method !== "GET") {
-        res.statusCode = 405;
-        res.setHeader("Content-Type", "application/json");
-        res.end(JSON.stringify({ error: "Method not Allowed", allowed: ["GET"] }))
+        sendError(res, 405, "Method not allowed", "GET");
         return
     } else if (parts.length === 1 && parts[0] === "number" && req.method === "GET") {
         //give a number to client
@@ -68,14 +62,10 @@ const server = http.createServer((req, res) => {
         }
 
         const n = parseInt(Math.random() * max) + 1;
-        res.statusCode = 200;
-        res.setHeader("Content-Type", "text/plain");
-        res.end(n.toString())
+        sendText(res, 200, n.toString())
     }
     else {
-        res.statusCode = 404;
-        res.setHeader("Content-Type", "application/json");
-        res.end(JSON.stringify({ error: req.url + " Not found" }))
+        sendError(res, 404, req.url + " Not Found")
     }
 
 })
@@ -83,3 +73,27 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, HOSTNAME, () => {
     console.log("ONLINE su http:/" + HOSTNAME + ":" + PORT);
 })
+
+
+function sendJSON(res, statusCode, data) {
+    res.statusCode = statusCode;
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify(data));
+}
+function sendText(res, statusCode, data) {
+    res.statusCode = statusCode;
+    res.setHeader("Content-Type", "text/plain");
+    res.end(data);
+}
+
+function sendError(res, statusCode, message, allowed = null) {
+    const error = { error: message };
+    if (allowed) error.allowed = allowed;
+    sendJSON(res, statusCode, error);
+}
+
+function sendMethodNotAllowed(res, allowedMethods) {
+    res.statusCode = 405;
+    res.setHeader("Allow", allowedMethods.join(", "));
+    sendError(res, 405, "Method not allowed", allowedMethods);
+}
