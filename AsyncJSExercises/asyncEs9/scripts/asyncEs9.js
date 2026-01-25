@@ -10,9 +10,10 @@ async function getUserPosts(userId) {
     const userData = await userResponse.json()
     const userPostsData = await userPostsResponse.json()
     
-    //Utile per capite la struttura della risposta
-    //console.log(userPostsData);
-
+    /*Utile per capite la struttura della risposta
+    * console.log(userPostsData);
+    */
+   
     console.log("Lo user " + userData.name + " ha scritto " + userPostsData.length + " post.");
 
 }
