@@ -15,6 +15,16 @@ const HOSTNAME = "localhost"
 let numbers = [1, 2, 3, 4, 5];
 
 const server = http.createServer((req, res) => {
+
+    console.log(req.url);
+    console.log(req.url.split("/"));
+    let actualUrl = [];
+    for (let part of req.url.split("/")) {
+        if (part !== "") actualUrl.push(part)
+    }
+    console.log(actualUrl);
+
+
     if (req.url === "/") {
         res.statusCode = 302;
         res.setHeader("Location", "/numbers");
