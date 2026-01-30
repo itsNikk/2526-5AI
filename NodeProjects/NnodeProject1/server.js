@@ -49,6 +49,8 @@ const server = http.createServer((req, res) => {
             res.setHeader("Location", "/numbers/" + (numbers.length - 1))
             return res.end();
         })
+
+        return;
     }
 
 })
