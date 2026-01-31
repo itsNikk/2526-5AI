@@ -47,7 +47,7 @@ const server = http.createServer((req, res) => {
         let body = ''
         req.on("data", (chunk) => {
             //Perchè toString()? Perchè andava anche senza toString()?
-            console.log(chunk);
+            //console.log(chunk);
             body += chunk.toString()
         })
 
