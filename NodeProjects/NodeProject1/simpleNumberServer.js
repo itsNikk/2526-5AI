@@ -34,19 +34,21 @@ const server = http.createServer((req, res) => {
 
 
     //if (req.url === "/numbers" && req.method === "GET") {
-        if (actualUrl[0] === "numbers" && req.method === "GET") {
-            //restituire tutti numeri
-            res.statusCode = 200;
-            res.setHeader("Content-Type", "application/json") //MIME type
-            return res.end(JSON.stringify({ numbers: numbers }))
-        }
-        
+    if (actualUrl[0] === "numbers" && req.method === "GET") {
+        //restituire tutti numeri
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json") //MIME type
+        return res.end(JSON.stringify({ numbers: numbers }))
+    }
+
     //if (req.url === "/numbers" && req.method === "POST") {
     if (actualUrl[0] === "numbers" && req.method === "POST") {
         //Fintanto ceh il client mi sta inviando dati...
         let body = ''
         req.on("data", (chunk) => {
-            body += chunk
+            //Perchè toString()? Perchè andava anche senza toString()?
+            console.log(chunk);
+            body += chunk.toString()
         })
 
         req.on("end", () => {
