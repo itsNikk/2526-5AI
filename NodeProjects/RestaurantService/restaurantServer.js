@@ -19,8 +19,43 @@ function sendJSON(res, statusCode, body) {
     res.end(JSON.stringify(body));
 }
 
+// Input: "/restaurants/1/reviews?sort=date"
+// Output: {
+//   parts: ['', 'restaurants', '1', 'reviews'],
+//   query: { sort: 'date' }
+// }
 function parseURL(url) {
 
+    let qIndex = url.indexOf("?");
+    let path = []
+    let queryString = url.split("?");
+
+    if (qIndex !== -1) {
+        path = url.substring(0, qIndex);
+        queryString = url.substring(qIndex + 1);
+    } else {
+        path = url;
+        queryString = '';
+    }
+
+    let parts = [];
+    let pathParts = path.split('/');
+    for (let i = 0; i < pathParts.length; i++) {
+        if (pathParts[i] !== '') {
+            parts.push(pathParts[i]);
+        }
+    }
+
+    let query = {};
+    if (queryString !== '') {
+        let pairs = queryString.split('&');
+        for (let i = 0; i < pairs.length; i++) {
+            let pair = pairs[i].split('=');
+            query[pair[0]] = pair[1];
+        }
+    }
+
+    return { parts: path, query: query }
 }
 
 const server = http.createServer((req, res) => {
@@ -30,6 +65,8 @@ const server = http.createServer((req, res) => {
     let urlParts = parseURL(url)
 
     console.log(method + ' ' + url);
+    console.log(urlParts);
+
     sendJSON(res, 404, { error: "Not Found" })
 })
 
