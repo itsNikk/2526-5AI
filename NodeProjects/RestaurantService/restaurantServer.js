@@ -55,17 +55,36 @@ function parseURL(url) {
         }
     }
 
-    return { parts: path, query: query }
+    return { parts: parts, query: query }
 }
 
 const server = http.createServer((req, res) => {
     const method = req.method;
     const url = req.url;
-
-    let urlParts = parseURL(url)
-
     console.log(method + ' ' + url);
-    console.log(urlParts);
+
+    let parsedUrl = parseURL(url)
+    const parts = parsedUrl.parts;
+    const query = parsedUrl.query;
+
+    console.log(parsedUrl);
+
+    if (method === "GET" && parts.length === 1 && parts[0] === "restaurants") {
+        let restaurants = data.restaurants;
+
+        if (query.cucina) {
+            let filteredRes = []
+            for (const restaurant of restaurants) {
+                if (restaurant.cucina === query.cucina) {
+                    filteredRes.push(restaurant);
+                }
+            }
+            restaurants = filteredRes
+        }
+
+        sendJSON(res, 200, restaurants)
+        return
+    }
 
     sendJSON(res, 404, { error: "Not Found" })
 })
