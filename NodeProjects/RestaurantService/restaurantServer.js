@@ -69,6 +69,11 @@ const server = http.createServer((req, res) => {
 
     console.log(parsedUrl);
 
+    if (method === "GET" && parts.length === 0) {
+        sendJSON(res, 200, { message: "Welcome to TripAdvisor" })
+        return;
+    }
+
     if (method === "GET" && parts.length === 1 && parts[0] === "restaurants") {
         let restaurants = data.restaurants;
 
@@ -82,10 +87,38 @@ const server = http.createServer((req, res) => {
             restaurants = filteredRes
         }
 
+
         sendJSON(res, 200, restaurants)
         return
     }
 
+
+
+    if (method === "GET" && parts.length === 2 && parts[0] === "restaurants") {
+        let restaurantId = Number(parts[1]);
+
+        let restaurant = JSON.parse(JSON.stringify(findRestaurantById(restaurantId)));
+        if (restaurant) {
+            //Loop over reviews
+            let avg = 0;
+            let restReviews = 0;
+            for (const review of data.reviews) {
+                if (restaurantId === review.id_ristorante) {
+                    restReviews++;
+                    avg += review.voto;
+                }
+            }
+            //TODO: Occhio alle divisioni per zero
+            avg = avg / restReviews;
+            restaurant.voto_medio = avg;
+            sendJSON(res, 200, restaurant)
+        } else sendJSON(res, 404, { error: "not found" })
+        return
+    }
+
+
+
+    //Res doesn't exist
     sendJSON(res, 404, { error: "Not Found" })
 })
 
@@ -93,3 +126,12 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, HOSTNAME, () => {
     console.log("Restaurant service online on http://" + HOSTNAME + ":" + PORT);
 })
+
+function findRestaurantById(restaurantId) {
+    for (const restaurant of data.restaurants) {
+        if (restaurant.id === restaurantId) {
+            return restaurant;
+        }
+    }
+    return null;
+}
