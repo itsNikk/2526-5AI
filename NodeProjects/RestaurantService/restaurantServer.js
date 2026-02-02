@@ -4,7 +4,6 @@ const fs = require("fs");
 const PORT = 8080
 const HOSTNAME = "localhost"
 
-
 let data = JSON.parse(fs.readFileSync("./data.json", 'utf-8'));
 
 function saveData() {
@@ -87,7 +86,6 @@ const server = http.createServer((req, res) => {
             restaurants = filteredRes
         }
 
-
         sendJSON(res, 200, restaurants)
         return
     }
@@ -138,7 +136,6 @@ const server = http.createServer((req, res) => {
     //Res doesn't exist
     sendJSON(res, 404, { error: "Not Found" })
 })
-
 
 server.listen(PORT, HOSTNAME, () => {
     console.log("Restaurant service online on http://" + HOSTNAME + ":" + PORT);
