@@ -93,7 +93,7 @@ const server = http.createServer((req, res) => {
     }
 
 
-
+    ///restaurants/{id}
     if (method === "GET" && parts.length === 2 && parts[0] === "restaurants") {
         let restaurantId = Number(parts[1]);
 
@@ -116,6 +116,23 @@ const server = http.createServer((req, res) => {
         return
     }
 
+    // /restaurants/{id}/reviews
+    if (method === "GET" && parts.length === 3 && parts[0] === "restaurants") {
+        let restaurant = findRestaurantById(Number(parts[1]));
+        if (!restaurant) {
+            sendJSON(res, 404, { error: "not found" })
+            return
+        }
+
+        let restReviews = []
+        for (const review of data.reviews) {
+            if (review.id_ristorante === restaurant.id) {
+                restReviews.push(review)
+            }
+        }
+        sendJSON(res, 200, restReviews)
+        return
+    }
 
 
     //Res doesn't exist
