@@ -117,7 +117,7 @@ const server = http.createServer((req, res) => {
     }
 
     // /restaurants/{id}/reviews
-    if (method === "GET" && parts.length === 3 && parts[0] === "restaurants") {
+    if (method === "GET" && parts.length === 3 && parts[0] === "restaurants" && parts[1] === "reviews") {
         let restaurant = findRestaurantById(Number(parts[1]));
         if (!restaurant) {
             sendJSON(res, 404, { error: "not found" })
