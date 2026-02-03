@@ -1,0 +1,52 @@
+{
+  "restaurants": [
+    {
+      "id": 1,
+      "nome": "Trattoria da Gino",
+      "indirizzo": "Via Roma 10",
+      "citta": "Milano",
+      "telefono": "02-1234567",
+      "orari": "12:00-15:00, 19:00-23:00",
+      "cucina": "italiana",
+      "fascia_prezzo": "€€"
+    },
+    {
+      "id": 2,
+      "nome": "Sushi Zen",
+      "indirizzo": "Corso Venezia 5",
+      "citta": "Milano",
+      "telefono": "02-7654321",
+      "orari": "12:00-15:00, 19:00-23:00",
+      "cucina": "giapponese",
+      "fascia_prezzo": "€€€"
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "id_ristorante": 1,
+      "id_utente": 1,
+      "voto": 5,
+      "testo": "Ottimo cibo, servizio eccellente",
+      "data": "2026-01-15T18:30:00Z"
+    },
+    {
+      "id": 2,
+      "id_ristorante": 1,
+      "id_utente": 2,
+      "voto": 4,
+      "testo": "Buono ma un po' caro",
+      "data": "2026-01-20T20:15:00Z"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "nome": "Marco Rossi"
+    },
+    {
+      "id": 2,
+      "nome": "Laura Bianchi"
+    }
+  ]
+}
