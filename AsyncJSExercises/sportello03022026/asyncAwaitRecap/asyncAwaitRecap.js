@@ -37,6 +37,18 @@ async function getUserInfo() {
     console.log("Numero tot di posts: " + posts.length);
     console.log("Titolo primo post: " + posts[0].title);
 
+    // *3. per ogni post ottieni i commenti
+    const allPostsResponse = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const allPosts = await allPostsResponse.json();
+
+    //Foreach
+    for (const post of allPosts) {
+        //console.log(post.id);
+        const postCommentsResponse = await fetch("https://jsonplaceholder.typicode.com/comments?postId=" + post.id)
+        const postComments = await postCommentsResponse.json();
+        console.log(postComments);
+
+    }
 
 }
 
