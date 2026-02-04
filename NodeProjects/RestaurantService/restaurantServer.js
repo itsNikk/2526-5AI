@@ -115,7 +115,7 @@ const server = http.createServer((req, res) => {
     }
 
     // /restaurants/{id}/reviews
-    if (method === "GET" && parts.length === 3 && parts[0] === "restaurants" && parts[1] === "reviews") {
+    if (method === "GET" && parts.length === 3 && parts[0] === "restaurants" && parts[2] === "reviews") {
         let restaurant = findRestaurantById(Number(parts[1]));
         if (!restaurant) {
             sendJSON(res, 404, { error: "not found" })
@@ -130,6 +130,11 @@ const server = http.createServer((req, res) => {
         }
         sendJSON(res, 200, restReviews)
         return
+    }
+
+    if (method === "POST" && parts.length === 3 && parts[0] === "restaurants" && parts[2] === "reviews") {
+        sendJSON(res, 501, { error: "Not implemented", message: "si posteranno reviews... planned but not yet implemented" })
+        return;
     }
 
 
