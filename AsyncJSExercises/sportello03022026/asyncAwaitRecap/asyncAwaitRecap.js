@@ -24,9 +24,9 @@ async function getUserInfo() {
     console.log(user);
 
     console.log("Utente trovato: " + user.name);
+    // *2. recuperiamo tutti i post     dei quell'utente
     console.log("Email: " + user.email);
 
-    // *2. recuperiamo tutti i post dei quell'utente
     const postsResponse = await fetch("https://jsonplaceholder.typicode.com/posts?userId=" + randomUserId)
     const posts = await postsResponse.json();
 
