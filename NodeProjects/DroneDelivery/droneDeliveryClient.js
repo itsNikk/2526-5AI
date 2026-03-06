@@ -23,9 +23,9 @@ async function getDrones() {
 
 /*
     Scrivere funzione che:
-    1) Crea una nuova consegna
-    2) crea il pacchetto giusto
-    3) Restituisce l'oggetto consegnato creato (con il nuoov ID)
+    * 1) Crea una nuova consegna
+    * 2) crea il pacchetto giusto
+    * 3) Restituisce l'oggetto consegnato creato (con il nuoov ID)
 */
 async function postNewDelivery() {
     let res = await fetch("http://localhost:3000/deliveries", {
