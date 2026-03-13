@@ -53,16 +53,26 @@ async function getCriticalDrones() {
     const response = await fetch("http://localhost:3000/drones");
     const data = await response.json();
 
-    console.log(data);
-    console.log(data.drones);
+    //console.log(data);
+    //console.log(data.drones);
 
     //For each...
+    let droneObj = []
     for (const drone of data.drones) {
-        if (drone.battery < 30 || drone.status === "maintenance" || drone.maintenance.issues.length >= 1) {
-
-            console.log(drone);
+        const isBatteryCritical = drone.battery < 30
+        if (isBatteryCritical || drone.status === "maintenance" || drone.maintenance.issues.length >= 1) {
+            //console.log(drone);
+            droneObj.push({
+                id: drone.id,
+                battery: drone.battery,
+                status: drone.status,
+                issuesCount: drone.maintenance.issues.length
+            })
+            console.log(droneObj);
         }
     }
+
+    //Ordinamento
 
 
 }
