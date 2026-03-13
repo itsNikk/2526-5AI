@@ -88,6 +88,34 @@ async function getCriticalDrones() {
 
 getCriticalDrones()
 
+async function createDelivery() {
+    const response = await fetch("http://localhost:3000/deliveries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            destination: {
+                address: "via Matteotti 456",
+                zone: "east"
+            },
+            package: {
+                weight: 4.2,
+                category: "electronics"
+            },
+            priority: "medium"
+        })
+    })
+    const data = await response.json()
+    console.log(data);
+    const postId = data.delivery.id
+    console.log(postId);
+
+    //Rifai fetch GET /deliveries
+    //controlla se c'è postId dentro ciò che mi arriva dal server
+
+}
+
+createDelivery()
+
 async function printResults() {
 
     /*let task1Result = await getDrones()
