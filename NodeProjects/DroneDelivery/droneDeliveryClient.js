@@ -40,7 +40,7 @@ async function postNewDelivery() {
                     weight: 3.5,
                     category: "electronics",
                     fragile: false
-                }, priority:"high"
+                }, priority: "high"
             }
         )
     })
@@ -49,15 +49,34 @@ async function postNewDelivery() {
 
 }
 
+async function getCriticalDrones() {
+    const response = await fetch("http://localhost:3000/drones");
+    const data = await response.json();
+
+    console.log(data);
+    console.log(data.drones);
+
+    //For each...
+    for (const drone of data.drones) {
+        if (drone.battery < 30 || drone.status === "maintenance" || drone.maintenance.issues.length >= 1) {
+
+            console.log(drone);
+        }
+    }
+
+
+}
+
+getCriticalDrones()
 
 async function printResults() {
 
-    let task1Result = await getDrones()
+    /*let task1Result = await getDrones()
     console.log(task1Result);
 
     let task2 = await postNewDelivery()
     console.log(task2);
-    
+    */
 }
 
 printResults()
