@@ -68,13 +68,22 @@ async function getCriticalDrones() {
                 status: drone.status,
                 issuesCount: drone.maintenance.issues.length
             })
-            console.log(droneObj);
+
         }
     }
 
     //Ordinamento
-
-
+    for (let i = 0; i < droneObj.length - 1; i++) {
+        for (let j = 0; j < droneObj.length - 1 - i; j++) {
+            if (droneObj[j].battery > droneObj[j + 1].battery) {
+                const temp = droneObj[j]
+                droneObj[j] = droneObj[j + 1]
+                droneObj[j + 1] = temp
+            }
+        }
+    }
+    console.log(droneObj);
+    return droneObj
 }
 
 getCriticalDrones()
