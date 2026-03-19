@@ -9,8 +9,8 @@ async function ricaricaDroniScarichi() {
   
   for (const drone of dronesData.drones) {
     if (drone.battery < 40) {
-      const batteryPrima = drone.battery;
-      const incremento = batteryPrima * 0.30;
+      const batteryBefore = drone.battery;
+      const incremento = batteryBefore * 0.30;
       
       const putResponse = await fetch(API_BASE_URL + '/drones/' + drone.id + '/battery', {
         method: 'PUT',
@@ -23,12 +23,12 @@ async function ricaricaDroniScarichi() {
       });
       
       const putData = await putResponse.json();
-      const batteryDopo = putData.drone.battery;
+      const batteryAfterCharge = putData.drone.battery;
       
       risultati.push({
         droneId: drone.id,
-        batteryPrima: batteryPrima,
-        batteryDopo: batteryDopo
+        batteryPrima: batteryBefore,
+        batteryDopo: batteryAfterCharge
       });
     }
   }
