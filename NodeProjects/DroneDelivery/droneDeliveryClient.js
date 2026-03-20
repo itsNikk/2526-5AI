@@ -111,6 +111,7 @@ async function createDelivery() {
 
     //Rifai fetch GET /deliveries
     //controlla se c'è postId dentro ciò che mi arriva dal server
+    const getResponse = await fetch("http://localhost:3000/")
 
 }
 
