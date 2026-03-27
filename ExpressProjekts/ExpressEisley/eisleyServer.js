@@ -17,8 +17,20 @@ let nexClientId = clienti.length + 1
 // Global: printare methodo e url della res
 app.use((req, res, next) => {
 
-    console.log();
+    console.log(req.method + " : " + req.url);
 
+    next()
+})
+
+app.use("/clienti", (req, res, next) => {
+    const tesseraHeader = req.headers["x-tessera"]
+    if(!tesseraHeader){
+        res.status(403).json({error:"Nessun tesserino, nessun accesso."})
+    }
+})
+
+app.get("/clienti", (req, res) => {
+    res.status(200).json(clienti)
 })
 
 app.listen(3000, () => {
