@@ -24,14 +24,27 @@ app.use((req, res, next) => {
 
 app.use("/clienti", (req, res, next) => {
     const tesseraHeader = req.headers["x-tessera"]
-    if(!tesseraHeader){
-        res.status(403).json({error:"Nessun tesserino, nessun accesso."})
+    console.log(tesseraHeader);
+
+    if (!tesseraHeader) {
+        return res.status(403).json({ error: "Nessun tesserino, nessun accesso." })
     }
+
+    next()
 })
+
+app.use("/clienti", (req, res, next) => {
+    // analizza l'header x-gettoni
+    // se esiste ed è un numero maggiore di 0, inseriscilo in una var req.gettoni
+    //altrimenti imposatala di default a 0
+})
+
 
 app.get("/clienti", (req, res) => {
     res.status(200).json(clienti)
 })
+
+//Aprite un endpoint /clienti/:id che rstituisce il cliente con id pari a il p.dinamico id
 
 app.listen(3000, () => {
     console.log("Cantina aperta su porta " + 3000);
