@@ -39,7 +39,6 @@ app.use("/clienti", (req, res, next) => {
     //altrimenti imposatala di default a 0
 })
 
-
 app.get("/clienti", (req, res) => {
     res.status(200).json(clienti)
 })
@@ -47,7 +46,6 @@ app.get("/clienti", (req, res) => {
 //Aprite un endpoint GET /clienti/:id che rstituisce il cliente con id pari a il p.dinamico id
 //Aprite un endpoint POST /clienti inserisce un nuovo cliente
 // bisogna controllare che non esista un cliente con lo stesso nome già registrato
-
 
 app.listen(3000, () => {
     console.log("Cantina aperta su porta " + 3000);
