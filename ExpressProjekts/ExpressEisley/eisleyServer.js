@@ -1,52 +1,52 @@
-const express = require("express")
-// Creo il servizio...
-const app = express()
+const express = require("express") //import 
 
-app.use(express.json())
+const PORT = 3000;
 
-let clienti = [
-    { id: 1, nome: "Han Solo", specie: "umano", credito: 1500 },
-    { id: 2, nome: "Greedo", specie: "rodiano", credito: 350 },
-    { id: 3, nome: "Chewbecca", specie: "wookie", credito: 840 },
-    { id: 4, nome: "ObiWan", specie: "umano", credito: 200 }
-]
+//1) creare il server
+const server = express()
 
-let nexClientId = clienti.length + 1
+server.use(express.json())
 
-// MW = (req,res,next)
-// Global: printare methodo e url della res
-app.use((req, res, next) => {
-
-    console.log(req.method + " : " + req.url);
+//MW globale che stampa info per ogni richiesta (REQ)
+server.use((req, res, next) => {
+    console.log("[GL.MW] " + req.method + " - " + req.url);
 
     next()
 })
 
-app.use("/clienti", (req, res, next) => {
-    const tesseraHeader = req.headers["x-tessera"]
-    console.log(tesseraHeader);
+server.use("/clienti", (req, res, next) => {
+    //controlla se header custom esiste
+    //prendo un header
+    const tessera = req.headers["x-tessera"]
 
-    if (!tesseraHeader) {
-        return res.status(403).json({ error: "Nessun tesserino, nessun accesso." })
+    if (!tessera) {
+        //Possibile 403...
+        return res.status(400).json({ err: " niente tessera, niente ingresso." })
     }
 
     next()
 })
 
-app.use("/clienti", (req, res, next) => {
-    // analizza l'header x-gettoni
-    // se esiste ed è un numero maggiore di 0, inseriscilo in una var req.gettoni
-    //altrimenti imposatala di default a 0
+server.use("/clienti", (req, res, next) => {
+    // leggere x-gettoni 
+    const gettoni = parseInt(req.headers["x-gettoni"])
+    // se esiste associa il valore in req.campo
+    if (gettoni) {
+        req.gettoni = gettoni
+    } else {
+        req.gettoni = 0;
+    }
+
+    console.log(req.gettoni);
+
+    next();
 })
 
-app.get("/clienti", (req, res) => {
-    res.status(200).json(clienti)
+server.get("/clienti", (req, res) => {
+    res.status(200).json({ msg: "test" })
 })
 
-//Aprite un endpoint GET /clienti/:id che rstituisce il cliente con id pari a il p.dinamico id
-//Aprite un endpoint POST /clienti inserisce un nuovo cliente
-// bisogna controllare che non esista un cliente con lo stesso nome già registrato
-
-app.listen(3000, () => {
-    console.log("Cantina aperta su porta " + 3000);
+//listen - exc EADDRINUSE se porta già occupata
+server.listen(PORT, () => {
+    console.log("ONLINE");
 })
