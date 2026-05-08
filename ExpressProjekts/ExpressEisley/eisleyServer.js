@@ -30,7 +30,7 @@ server.use("/clienti", (req, res, next) => {
 server.use("/clienti", (req, res, next) => {
     // leggere x-gettoni 
     const gettoni = parseInt(req.headers["x-gettoni"])
-    // se esiste associa il valore in req.campo
+    // se esiste (sto controllando davvero l'esistenza?) associa il valore in req.campo
     if (gettoni) {
         req.gettoni = gettoni
     } else {
